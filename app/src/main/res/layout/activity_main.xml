@@ -83,18 +83,26 @@
                 android:layout_width="@dimen/standard_field_width"
                 android:layout_height="wrap_content"
                 android:text="@string/download" />
+
+            <Button
+                android:id="@+id/to_collector_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Data" />
         </LinearLayout>
+
         <ImageButton
+            android:id="@+id/imageButton"
             android:layout_width="65dp"
             android:layout_height="65dp"
-            android:id="@+id/imageButton"
-            android:background="@drawable/oval"
-
             android:layout_gravity="bottom|end"
+
             android:layout_marginBottom="65dp"
+            android:layout_marginEnd="25dp"
             android:layout_marginRight="25dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginEnd="25dp" />
+            android:background="@drawable/oval"
+            android:src="@mipmap/ic_launcher" />
+
     </LinearLayout>
 
 </ScrollView>

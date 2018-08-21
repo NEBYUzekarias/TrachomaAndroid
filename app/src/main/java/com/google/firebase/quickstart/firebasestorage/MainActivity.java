@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.button_camera).setOnClickListener(this);
       //  findViewById(R.id.button_sign_in).setOnClickListener(this);
         findViewById(R.id.button_download).setOnClickListener(this);
+        findViewById(R.id.to_collector_btn).setOnClickListener(this);
 
 
         //floating button
@@ -331,6 +332,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else if (i == R.id.button_download) {
             beginDownload();
+        } else if (i == R.id.to_collector_btn) {
+            Intent open_collector = new Intent(this, DataCollector.class);
+            startActivity(open_collector);
         }
     }
 }
