@@ -21,4 +21,8 @@
     <string name="download_success">Download finished</string>
     <string name="download_failure">Download failure</string>
     <string name="title_activity_data_collector">DataCollector</string>
+    <string name="todo">TODO</string>
+    <string name="fdh">TODO</string>
+    <string name="info">info </string>
+    <string name="about">about</string>
 </resources>

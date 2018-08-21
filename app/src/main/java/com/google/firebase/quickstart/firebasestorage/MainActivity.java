@@ -22,25 +22,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
+
 //import com.google.firebase.auth.AuthResult;
 //import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Locale;
 
 /**
  * Activity to upload and download photos from Firebase Storage.
@@ -49,6 +49,12 @@ import java.util.Locale;
  * See {@link MyDownloadService} for download example.
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+
+// Recycle view
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     private static final String TAG = "Storage#MainActivity";
 
@@ -67,28 +73,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        // start RecycleView
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+
+        ArrayList<String > mDataset = new ArrayList<String>(
+                Arrays.asList("Neba", "yara", "kida","masta", "yara", "kida"));
+
+        mAdapter = new MyAdapter(mDataset);
+        mRecyclerView.setAdapter(mAdapter);
+
+        // end of RecycleView
 
         // Initialize Firebase Auth
        // mAuth = FirebaseAuth.getInstance();
 
         // Click listeners
         findViewById(R.id.button_camera).setOnClickListener(this);
-      //  findViewById(R.id.button_sign_in).setOnClickListener(this);
-        findViewById(R.id.button_download).setOnClickListener(this);
-        findViewById(R.id.to_collector_btn).setOnClickListener(this);
+
 
 
         //floating button
         floatButton = (ImageButton) findViewById(R.id.imageButton);
-        floatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Button is clicked", Toast.LENGTH_LONG).show();
-            }
-        });
+        floatButton.setOnClickListener(this);
 
 
         // Restore instance state
@@ -229,27 +250,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivityForResult(intent, RC_TAKE_PICTURE);
     }
 
-//    private void signInAnonymously() {
-//        // Sign in anonymously. Authentication is required to read or write from Firebase Storage.
-//        showProgressDialog(getString(R.string.progress_auth));
-////        mAuth.signInAnonymously()
-////                .addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
-////                    @Override
-////                    public void onSuccess(AuthResult authResult) {
-////                        Log.d(TAG, "signInAnonymously:SUCCESS");
-////                        hideProgressDialog();
-////                        updateUI(authResult.getUser());
-////                    }
-////                })
-//                .addOnFailureListener(this, new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception exception) {
-//                        Log.e(TAG, "signInAnonymously:FAILURE", exception);
-//                        hideProgressDialog();
-//                        updateUI(null);
-//                    }
-//                });
-//    }
+
 
     private void onUploadResultIntent(Intent intent) {
         // Got a new intent from MyUploadService with a success or failure
@@ -269,17 +270,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            findViewById(R.id.layout_signin).setVisibility(View.VISIBLE);
 //            findViewById(R.id.layout_storage).setVisibility(View.GONE);
 //        }
-
-        // Download URL and Download button
-        if (mDownloadUrl != null) {
-            ((TextView) findViewById(R.id.picture_download_uri))
-                    .setText(mDownloadUrl.toString());
-            findViewById(R.id.layout_download).setVisibility(View.VISIBLE);
-        } else {
-            ((TextView) findViewById(R.id.picture_download_uri))
-                    .setText(null);
-            findViewById(R.id.layout_download).setVisibility(View.GONE);
-        }
+//
+//        // Download URL and Download button
+//        if (mDownloadUrl != null) {
+//            ((TextView) findViewById(R.id.picture_download_uri))
+//                    .setText(mDownloadUrl.toString());
+//            findViewById(R.id.layout_download).setVisibility(View.VISIBLE);
+//        } else {
+//            ((TextView) findViewById(R.id.picture_download_uri))
+//                    .setText(null);
+//            findViewById(R.id.layout_download).setVisibility(View.GONE);
+//        }
     }
 
     private void showMessageDialog(String title, String message) {
@@ -330,9 +331,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (i == R.id.button_camera) {
             launchCamera();
 
-        } else if (i == R.id.button_download) {
-            beginDownload();
-        } else if (i == R.id.to_collector_btn) {
+        }
+        else if (i == R.id.imageButton) {
             Intent open_collector = new Intent(this, DataCollector.class);
             startActivity(open_collector);
         }

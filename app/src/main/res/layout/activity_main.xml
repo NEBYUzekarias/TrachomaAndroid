@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:fillViewport="true"
     android:scrollbars="vertical"
-    tools:context="com.google.firebase.quickstart.firebasestorage.MainActivity">
+    tools:context="com.google.firebase.quickstart.firebasestorage.MainActivity"
+    tools:ignore="ScrollViewCount">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,13 +17,7 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/firebase_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/margin_2"
-            android:src="@drawable/firebase_lockup_400" />
+
 
 
 
@@ -33,12 +28,7 @@
             android:orientation="vertical"
             tools:visibility="visible">
 
-            <TextView
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_1"
-                android:text="@string/take_photo_prompt" />
+
 
             <Button
                 android:id="@+id/button_camera"
@@ -48,48 +38,13 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layout_download"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:visibility="visible">
 
-            <TextView
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_1"
-                android:layout_marginTop="@dimen/margin_2"
-                android:text="@string/label_link" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-            <TextView
-                android:id="@+id/picture_download_uri"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autoLink="web"
-                tools:text="http://www.example.com/?id=UAOJNVKBMQUGPYZKCQZRZKJEXRCRXMRSMFBZBMBODWUSVTDXJCPJMYOKQQBODSGPYHPZUR" />
-
-            <TextView
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_1"
-                android:layout_marginTop="@dimen/margin_2"
-                android:text="@string/label_download" />
-
-            <Button
-                android:id="@+id/button_download"
-                android:layout_width="@dimen/standard_field_width"
-                android:layout_height="wrap_content"
-                android:text="@string/download" />
-
-            <Button
-                android:id="@+id/to_collector_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add Data" />
-        </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/imageButton"
@@ -97,6 +52,11 @@
             android:layout_height="65dp"
             android:layout_gravity="bottom|end"
             android:src="@android:drawable/ic_input_add" />
+
+
     </LinearLayout>
+
+
+
 
 </ScrollView>
