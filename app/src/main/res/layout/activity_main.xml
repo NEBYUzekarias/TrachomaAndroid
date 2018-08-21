@@ -51,7 +51,7 @@
         <LinearLayout
             android:id="@+id/layout_download"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             tools:visibility="visible">
 
@@ -91,18 +91,12 @@
                 android:text="Add Data" />
         </LinearLayout>
 
-        <ImageButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/imageButton"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_gravity="bottom|end"
-
-            android:layout_marginBottom="65dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/oval"
-            android:src="@mipmap/ic_launcher" />
-
+            android:src="@android:drawable/ic_input_add" />
     </LinearLayout>
 
 </ScrollView>
