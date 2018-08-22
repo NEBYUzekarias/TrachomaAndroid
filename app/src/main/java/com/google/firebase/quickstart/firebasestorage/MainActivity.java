@@ -17,11 +17,14 @@
 package com.google.firebase.quickstart.firebasestorage;
 
 import android.app.ProgressDialog;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +39,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 //import com.google.firebase.auth.AuthResult;
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 // Recycle view
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private static final String TAG = "Storage#MainActivity";
@@ -71,13 +75,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Uri mDownloadUrl = null;
     private Uri mFileUri = null;
 
+    private DataViewModel mDataViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         // start RecycleView
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -90,24 +95,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-
-        ArrayList<String > mDataset = new ArrayList<String>(
-                Arrays.asList("Neba", "yara", "kida","masta", "yara", "kida"));
+//        List<String> mDataset = new ArrayList<String>(
+//                Arrays.asList("Neba", "yara", "kida","masta", "yara", "kida"));
         ArrayList personImages = new ArrayList<>(Arrays.asList(R.drawable.honey, R.drawable.honey, R.drawable.honey, R.drawable.honey, R.drawable.honey, R.drawable.honey));
 
-
-        mAdapter = new MyAdapter(mDataset , personImages);
+        mAdapter = new MyAdapter(personImages);
         mRecyclerView.setAdapter(mAdapter);
 
         // end of RecycleView
+
+        // get view model for data
+        mDataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
+        // assign observer for possible data change
+        mDataViewModel.getAllData().observe(this, new Observer<List<Data>>() {
+            @Override
+            public void onChanged(@Nullable List<Data> datas) {
+                // Update the cached copy of the data in the adapter.
+                mAdapter.setDatas(datas);
+            }
+        });
 
         // Initialize Firebase Auth
        // mAuth = FirebaseAuth.getInstance();
 
         // Click listeners
         findViewById(R.id.button_camera).setOnClickListener(this);
-
-
 
         //floating button
         floatButton = (ImageButton) findViewById(R.id.imageButton);

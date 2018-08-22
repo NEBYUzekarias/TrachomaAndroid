@@ -10,12 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
    // public List<Data> mDataset;
 
 
-   private ArrayList<String> mDataset;
+   private List<Data> mDataset;
    private ArrayList image;
 
     // Provide a reference to the views for each data item
@@ -36,9 +37,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<String> myDataset , ArrayList image) {
-        mDataset = myDataset;
-       this.image = image;
+    public MyAdapter(ArrayList image) {
+        this.image = image;
+    }
+
+    public void setDatas(List<Data> datas) {
+        mDataset = datas;
+        notifyDataSetChanged();
     }
 
     // Create new views (invoked by the layout manager)
@@ -57,17 +62,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset.get(position));
+        holder.mTextView.setText(mDataset.get(position).path);
         holder.imageView.setImageResource((Integer) image.get(position));
-
-
-
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        if (mDataset != null) {
+            return mDataset.size();
+        }
+
+        return 0;
     }
 }

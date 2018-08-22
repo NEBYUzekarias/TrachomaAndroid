@@ -1,5 +1,6 @@
 package com.google.firebase.quickstart.firebasestorage;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -12,7 +13,7 @@ import java.util.List;
 @Dao
 public interface DataDao {
     @Query("select * from data")
-    List<Data> getAll();
+    LiveData<List<Data>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertData(Data data);
