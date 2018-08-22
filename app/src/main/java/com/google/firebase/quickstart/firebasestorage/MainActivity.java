@@ -93,8 +93,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ArrayList<String > mDataset = new ArrayList<String>(
                 Arrays.asList("Neba", "yara", "kida","masta", "yara", "kida"));
+        ArrayList personImages = new ArrayList<>(Arrays.asList(R.drawable.honey, R.drawable.honey, R.drawable.honey, R.drawable.honey, R.drawable.honey, R.drawable.honey));
 
-        mAdapter = new MyAdapter(mDataset);
+
+        mAdapter = new MyAdapter(mDataset , personImages);
         mRecyclerView.setAdapter(mAdapter);
 
         // end of RecycleView

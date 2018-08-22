@@ -16,6 +16,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
    private ArrayList<String> mDataset;
+   private ArrayList image;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -23,20 +24,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         ImageView imageView;
-        Button upload;
+       // Button upload;
 
         public TextView mTextView;
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView)v.findViewById(R.id.tv_android);
             imageView = (ImageView)v.findViewById(R.id.img_android);
-            upload   = (Button)v.findViewById(R.id.upload);
+           // upload   = (Button)v.findViewById(R.id.upload);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<String> myDataset) {
+    public MyAdapter(ArrayList<String> myDataset , ArrayList image) {
         mDataset = myDataset;
+       this.image = image;
     }
 
     // Create new views (invoked by the layout manager)
@@ -56,6 +58,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset.get(position));
+        holder.imageView.setImageResource((Integer) image.get(position));
 
 
 
