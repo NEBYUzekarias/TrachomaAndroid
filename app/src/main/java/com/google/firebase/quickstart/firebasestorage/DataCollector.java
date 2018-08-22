@@ -1,5 +1,6 @@
 package com.google.firebase.quickstart.firebasestorage;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -25,6 +26,8 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
     private ImageView selectedImage;
     private Uri selectedUri;
 
+    private DataViewModel mDataViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,9 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.gallery_btn).setOnClickListener(this);
 
         selectedImage = (ImageView) findViewById(R.id.selected_image);
+
+        // get view model for data
+        mDataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
     }
 
     @Override
@@ -98,46 +104,6 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         Data data = new Data();
         data.path = uri.toString();
 
-        AppDatabase db = AppDatabase.getDb(getApplicationContext());
-
-        // insert data on background thread, cant insert on main thread
-        new InsertAyncTask(db.dataDao()).execute(data);
-
-        new GetAllAyncTask(db.dataDao()).execute();
-
-    }
-
-    private static class InsertAyncTask extends AsyncTask<Data, Void, Void> {
-        private DataDao asyncTaskDao;
-
-        InsertAyncTask(DataDao dataDao) {
-            asyncTaskDao = dataDao;
-        }
-
-        @Override
-        protected Void doInBackground(Data... data) {
-            asyncTaskDao.insertData(data[0]);
-            return null;
-        }
-    }
-
-    private static class GetAllAyncTask extends AsyncTask<Void, Void, List<Data>> {
-        private DataDao asyncTaskDao;
-
-        GetAllAyncTask(DataDao dataDao) {
-            asyncTaskDao = dataDao;
-        }
-
-        @Override
-        protected List<Data> doInBackground(Void... voids) {
-            return asyncTaskDao.getAll();
-        }
-
-        @Override
-        protected void onPostExecute(List<Data> datas) {
-            for (Data datum: datas) {
-                Log.i("datum", String.format("datum: %s", datum));
-            }
-        }
+        mDataViewModel.insertData(data);
     }
 }
