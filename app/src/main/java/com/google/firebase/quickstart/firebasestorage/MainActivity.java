@@ -141,22 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 hideProgressDialog();
 
                 switch (intent.getAction()) {
-                    case MyDownloadService.DOWNLOAD_COMPLETED:
-                        // Get number of bytes downloaded
-                        long numBytes = intent.getLongExtra(MyDownloadService.EXTRA_BYTES_DOWNLOADED, 0);
 
-                        // Alert success
-                        showMessageDialog(getString(R.string.success), String.format(Locale.getDefault(),
-                                "%d bytes downloaded from %s",
-                                numBytes,
-                                intent.getStringExtra(MyDownloadService.EXTRA_DOWNLOAD_PATH)));
-                        break;
-                    case MyDownloadService.DOWNLOAD_ERROR:
-                        // Alert failure
-                        showMessageDialog("Error", String.format(Locale.getDefault(),
-                                "Failed to download from %s",
-                                intent.getStringExtra(MyDownloadService.EXTRA_DOWNLOAD_PATH)));
-                        break;
                     case MyUploadService.UPLOAD_COMPLETED:
                     case MyUploadService.UPLOAD_ERROR:
                         onUploadResultIntent(intent);
@@ -241,19 +226,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         showProgressDialog(getString(R.string.progress_uploading));
     }
 
-    private void beginDownload() {
-        // Get path
-        String path = "photos/" + mFileUri.getLastPathSegment();
 
-        // Kick off MyDownloadService to download the file
-        Intent intent = new Intent(this, MyDownloadService.class)
-                .putExtra(MyDownloadService.EXTRA_DOWNLOAD_PATH, path)
-                .setAction(MyDownloadService.ACTION_DOWNLOAD);
-        startService(intent);
-
-        // Show loading spinner
-        showProgressDialog(getString(R.string.progress_downloading));
-    }
 
     private void launchCamera() {
         Log.d(TAG, "launchCamera");
@@ -271,39 +244,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDownloadUrl = intent.getParcelableExtra(MyUploadService.EXTRA_DOWNLOAD_URL);
         mFileUri = intent.getParcelableExtra(MyUploadService.EXTRA_FILE_URI);
 
-        updateUI();
+
     }
 
-    private void updateUI( ) {
-        // Signed in or Signed out
-//        String hf ="d";
-//        if (hf != null) {
-//            findViewById(R.id.layout_signin).setVisibility(View.GONE);
-//            findViewById(R.id.layout_storage).setVisibility(View.VISIBLE);
-//        } else {
-//            findViewById(R.id.layout_signin).setVisibility(View.VISIBLE);
-//            findViewById(R.id.layout_storage).setVisibility(View.GONE);
-//        }
-//
-//        // Download URL and Download button
-//        if (mDownloadUrl != null) {
-//            ((TextView) findViewById(R.id.picture_download_uri))
-//                    .setText(mDownloadUrl.toString());
-//            findViewById(R.id.layout_download).setVisibility(View.VISIBLE);
-//        } else {
-//            ((TextView) findViewById(R.id.picture_download_uri))
-//                    .setText(null);
-//            findViewById(R.id.layout_download).setVisibility(View.GONE);
-//        }
-    }
 
-    private void showMessageDialog(String title, String message) {
-        AlertDialog ad = new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(message)
-                .create();
-        ad.show();
-    }
 
     private void showProgressDialog(String caption) {
         if (mProgressDialog == null) {
@@ -329,14 +273,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int i = item.getItemId();
-        if (5 == 4) {
-            String print;
-            print ="dkja";
-            return true;
-        } else {
+
             return super.onOptionsItemSelected(item);
-        }
+
     }
 
     @Override
