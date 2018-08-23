@@ -1,6 +1,9 @@
 package com.google.firebase.quickstart.firebasestorage;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,15 +28,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         ImageView imageView;
-       // Button upload;
-
         public TextView mTextView;
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView)v.findViewById(R.id.tv_android);
             imageView = (ImageView)v.findViewById(R.id.img_android);
-           // upload   = (Button)v.findViewById(R.id.upload);
+
         }
+
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
@@ -63,7 +65,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset.get(position).path);
-        holder.imageView.setImageResource((Integer) image.get(position));
+        Uri uri = Uri.parse(mDataset.get(position).path);
+       // Bitmap myBitmap = BitmapFactory.decodeFile(.getAbsolutePath());
+         holder.imageView.setImageURI(uri);
+        // holder.imageView.setImageResource((Integer) image.get(position));
     }
 
     // Return the size of your dataset (invoked by the layout manager)

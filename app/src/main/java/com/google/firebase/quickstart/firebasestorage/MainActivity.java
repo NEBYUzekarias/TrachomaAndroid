@@ -33,7 +33,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog mProgressDialog;
     //private FirebaseAuth mAuth;
     ImageButton floatButton;
+    View upload;
 
     private Uri mDownloadUrl = null;
     private Uri mFileUri = null;
@@ -87,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // start RecycleView
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
+
+
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
@@ -101,6 +106,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mAdapter = new MyAdapter(personImages);
         mRecyclerView.setAdapter(mAdapter);
+        // adding onItemListner
+        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e ) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+
+
+
 
         // end of RecycleView
 
@@ -282,6 +308,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.button_camera) {
+            launchCamera();
+
+        }
+        else if (i == R.id.upload){
+
             launchCamera();
 
         }

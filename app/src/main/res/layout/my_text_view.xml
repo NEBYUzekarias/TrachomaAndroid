@@ -31,7 +31,7 @@
 
 
         <view
-            android:id="@+id/android_fab_with_circular_progress_ring"
+            android:id="@+id/upload"
             class="mbanje.kurt.fabbutton.FabButton"
             android:layout_width="@dimen/button_size"
             android:layout_height="@dimen/button_size"
