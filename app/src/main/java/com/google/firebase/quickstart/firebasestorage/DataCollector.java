@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,6 +34,7 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
     private final int CAPTURE_IMAGE = 2;
 
     private LinearLayout mStagesView;
+    private RadioGroup mStageRadios;
     private ImageView mSelectedImage;
     private Uri mSelectedUri;
 
@@ -54,8 +56,9 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.gallery_btn).setOnClickListener(this);
         findViewById(R.id.capture_btn).setOnClickListener(this);
 
-        mStagesView = (LinearLayout) findViewById(R.id.stages_view);
         mSelectedImage = (ImageView) findViewById(R.id.selected_image);
+        mStageRadios = (RadioGroup) findViewById(R.id.stage_radios);
+        mStagesView = (LinearLayout) findViewById(R.id.stages_view);
 //        mStagesView.setVisibility(View.GONE);
 
         // get view model for data
@@ -118,10 +121,33 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         return image;
     }
 
-    public void storeDataDetails(Uri uri) {
-        mData.path = uri.toString();
+    public boolean storeDataDetails() {
+        if (mData.stage == 0){
+            Snackbar.make(mSelectedImage, "No Stage Selected", Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
+            return false;
+        } else {
+            if (mSelectedUri != null){
+                mData.path = mSelectedUri.toString();
 
-        mDataViewModel.insertData(mData);
+                // insert data only when it is valid, otherwise notify users
+                mDataViewModel.insertData(mData);
+                return true;
+            } else {
+                Snackbar.make(mSelectedImage, "No Picture Selected", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+                return false;
+            }
+        }
+    }
+
+    public void resetState() {
+        mSelectedUri = null;
+        mCapturedPhotoPath = null;
+        mData = new Data();
+
+        mSelectedImage.setImageResource(R.drawable.gallery);
+        mStageRadios.clearCheck();
     }
 
     public void showStagesArea() {
@@ -167,19 +193,11 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
                 captureImage();
                 break;
             case R.id.add_btn:
-                if (mData.stage == 0) {
-                    // if stage is not selected, tenechanech
-                    Snackbar.make(view, "No Stage Selected", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                } else {
-                    // store uri if found or tenechanech
-                    if (mSelectedUri != null) {
-                        storeDataDetails(mSelectedUri);
-                    } else {
-                        Snackbar.make(view, "No Picture Selected", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
+                boolean detailsStored = storeDataDetails();
+                if (detailsStored){
+                    resetState();
                 }
+
                 break;
         }
     }
