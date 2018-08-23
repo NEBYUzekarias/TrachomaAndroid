@@ -26,11 +26,54 @@
                 android:text="From Gallery"
                 android:layout_marginHorizontal="@dimen/fab_margin"/>
             <Button
+                android:id="@+id/capture_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Take Photo"
                 android:layout_marginHorizontal="@dimen/fab_margin"/>/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/stages_view">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <RadioButton
+                    android:id="@+id/radio_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Stage 1"/>
+                <RadioButton
+                    android:id="@+id/radio_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Stage 2"/>
+                <RadioButton
+                    android:id="@+id/radio_3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Stage 3"/>
+                <RadioButton
+                    android:id="@+id/radio_4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Stage 4"/>
+                <RadioButton
+                    android:id="@+id/radio_5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Stage 5"/>
+            </RadioGroup>
         </LinearLayout>
 
         <ImageView

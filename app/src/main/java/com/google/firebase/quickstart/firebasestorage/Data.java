@@ -11,7 +11,7 @@ public class Data {
     public int id;
 
     @ColumnInfo(name = "stage")
-    public int stage = 1;
+    public int stage = 0;
 
     @ColumnInfo(name = "is_upload")
     public boolean isUpload = false;
