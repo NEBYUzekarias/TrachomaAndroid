@@ -20,6 +20,7 @@ import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 uri = Uri.parse(data.path);
             }
 
-            uploadFromUri(uri);
+            uploadFromUri(uri , data.stage);
         };
         mAdapter = new MyAdapter(listener);
         mRecyclerView.setAdapter(mAdapter);
@@ -202,25 +203,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         out.putParcelable(KEY_DOWNLOAD_URL, mDownloadUrl);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(TAG, "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
-        if (requestCode == RC_TAKE_PICTURE) {
-            if (resultCode == RESULT_OK) {
-                mFileUri = data.getData();
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Log.d(TAG, "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
+//        if (requestCode == RC_TAKE_PICTURE) {
+//            if (resultCode == RESULT_OK) {
+//                mFileUri = data.getData();
+//
+//
+//                if (mFileUri != null) {
+//                    uploadFromUri(mFileUri);
+//                } else {
+//                    Log.w(TAG, "File URI is null");
+//                }
+//            } else {
+//                Toast.makeText(this, "Taking picture failed.", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 
-                if (mFileUri != null) {
-                    uploadFromUri(mFileUri);
-                } else {
-                    Log.w(TAG, "File URI is null");
-                }
-            } else {
-                Toast.makeText(this, "Taking picture failed.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void uploadFromUri(Uri fileUri) {
+    private void uploadFromUri(Uri fileUri, int i) {
         Log.d(TAG, "uploadFromUri:src:" + fileUri.toString());
 
         // Save the File URI
@@ -232,8 +234,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Start MyUploadService to upload the file, so that the file is uploaded
         // even if this Activity is killed or put in the background
-        startService(new Intent(this, MyUploadService.class)
-                .putExtra(MyUploadService.EXTRA_FILE_URI, fileUri)
+        ComponentName componentName = startService(new Intent(this, MyUploadService.class)
+                .putExtra(MyUploadService.EXTRA_FILE_URI, fileUri )
+                .setFlags(i)
                 .setAction(MyUploadService.ACTION_UPLOAD));
 
         // Show loading spinner
