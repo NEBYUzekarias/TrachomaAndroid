@@ -14,6 +14,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -240,6 +241,23 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
             }
         } else {
             Log.i("result", "not ok");
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.info:
+
+                return true;
+            case R.id.setup:
+
+                return true;
+            case R.id.about:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
