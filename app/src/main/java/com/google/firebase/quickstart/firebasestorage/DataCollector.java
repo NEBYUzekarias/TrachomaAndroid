@@ -70,7 +70,7 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
     }
 
     private void chooseFromGallery() {
-        Intent getContent = new Intent(Intent.ACTION_GET_CONTENT);
+        Intent getContent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         getContent.setType("image/*");
         startActivityForResult(
                 Intent.createChooser(getContent, "Select picture"),

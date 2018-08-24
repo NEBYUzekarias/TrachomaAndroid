@@ -62,6 +62,7 @@ public class MyUploadService extends MyBaseTaskService {
 
             // Make sure we have permission to read the data
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                Log.i("my", fileUri.toString());
                 getContentResolver().takePersistableUriPermission(
                         fileUri,
                         Intent.FLAG_GRANT_READ_URI_PERMISSION);
