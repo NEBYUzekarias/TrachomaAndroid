@@ -25,22 +25,35 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         ImageView imageView;
         public TextView mTextView;
-        public ViewHolder(View v) {
+        private RecyclerViewClickListener mListener;
+
+        View button ;
+        public ViewHolder(View v  , RecyclerViewClickListener listener ) {
             super(v);
             mTextView = (TextView)v.findViewById(R.id.tv_android);
             imageView = (ImageView)v.findViewById(R.id.img_android);
+            mListener = listener;
+            button = (View)v.findViewById(R.id.upload);
+            button.setOnClickListener(this);
 
         }
 
+        @Override
+        public void onClick(View view) {
+
+            mListener.onClick(view, MyAdapter.this.mDataset.get(getAdapterPosition()));
+
+        }
     }
+    private RecyclerViewClickListener mListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList image) {
-        this.image = image;
+    public MyAdapter(RecyclerViewClickListener listener) {
+        mListener = listener;
     }
 
     public void setDatas(List<Data> datas) {
@@ -56,7 +69,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.my_text_view, parent, false);
 
-        return new ViewHolder(v);
+        return new ViewHolder(v , mListener);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -64,7 +77,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset.get(position).path);
+        holder.mTextView.setText("stage"+mDataset.get(position).stage);
         Uri uri = Uri.parse(mDataset.get(position).path);
        // Bitmap myBitmap = BitmapFactory.decodeFile(.getAbsolutePath());
          holder.imageView.setImageURI(uri);

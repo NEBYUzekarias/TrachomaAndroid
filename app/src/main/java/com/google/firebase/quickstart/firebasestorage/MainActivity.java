@@ -102,28 +102,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 //        List<String> mDataset = new ArrayList<String>(
 //                Arrays.asList("Neba", "yara", "kida","masta", "yara", "kida"));
-        ArrayList personImages = new ArrayList<>(Arrays.asList(R.drawable.honey, R.drawable.honey, R.drawable.honey, R.drawable.honey, R.drawable.honey, R.drawable.honey));
+        RecyclerViewClickListener listener = (view, data) -> {
+            Uri uri = Uri.parse(data.path);
 
-        mAdapter = new MyAdapter(personImages);
+            uploadFromUri(uri);
+
+
+        };
+        mAdapter = new MyAdapter(listener);
         mRecyclerView.setAdapter(mAdapter);
-        // adding onItemListner
-        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e ) {
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
 
 
 
@@ -321,4 +308,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(open_collector);
         }
     }
+
+
 }
