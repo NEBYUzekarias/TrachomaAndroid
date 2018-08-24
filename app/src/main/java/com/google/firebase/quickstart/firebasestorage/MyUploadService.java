@@ -60,12 +60,13 @@ public class MyUploadService extends MyBaseTaskService {
         if (ACTION_UPLOAD.equals(intent.getAction())) {
             Uri fileUri = intent.getParcelableExtra(EXTRA_FILE_URI);
 
-            // Make sure we have permission to read the data
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                Log.i("my", fileUri.toString());
-                getContentResolver().takePersistableUriPermission(
-                        fileUri,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            if (fileUri.getScheme().equals("file")) {
+                // Make sure we have permission to read the data
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    getContentResolver().takePersistableUriPermission(
+                            fileUri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
             }
 
             uploadFromUri(fileUri);

@@ -39,6 +39,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -90,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // start RecycleView
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
-
-
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
@@ -100,14 +99,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-//        List<String> mDataset = new ArrayList<String>(
-//                Arrays.asList("Neba", "yara", "kida","masta", "yara", "kida"));
         RecyclerViewClickListener listener = (view, data) -> {
-            Uri uri = Uri.parse(data.path);
+            Uri uri;
+            if (data.path.startsWith("file:///")) {
+                File file = new File(data.path.substring(8));
+                uri = Uri.fromFile(file);
+            } else {
+                uri = Uri.parse(data.path);
+            }
 
             uploadFromUri(uri);
-
-
         };
         mAdapter = new MyAdapter(listener);
         mRecyclerView.setAdapter(mAdapter);
