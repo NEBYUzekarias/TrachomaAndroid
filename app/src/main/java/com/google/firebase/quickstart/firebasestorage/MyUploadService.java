@@ -5,6 +5,7 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -34,6 +35,7 @@ public class MyUploadService extends MyBaseTaskService {
     /** Intent Extras **/
     public static final String EXTRA_FILE_URI = "extra_file_uri";
     public static final String EXTRA_DOWNLOAD_URL = "extra_download_url";
+    public static final String stage = "sta";
 
     // [START declare_ref]
     private StorageReference mStorageRef;
@@ -58,7 +60,8 @@ public class MyUploadService extends MyBaseTaskService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand:" + intent + ":" + startId);
         if (ACTION_UPLOAD.equals(intent.getAction())) {
-            Uri fileUri = intent.getParcelableExtra(EXTRA_FILE_URI);
+            Uri fileUri = intent.getParcelableExtra(EXTRA_FILE_URI );
+            int stag = intent.getFlags();
 
             // Make sure we have permission to read the data
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -68,14 +71,14 @@ public class MyUploadService extends MyBaseTaskService {
                         Intent.FLAG_GRANT_READ_URI_PERMISSION);
             }
 
-            uploadFromUri(fileUri);
+            uploadFromUri(fileUri, stag);
         }
 
         return START_REDELIVER_INTENT;
     }
 
     // [START upload_from_uri]
-    private void uploadFromUri(final Uri fileUri) {
+    private void uploadFromUri(final Uri fileUri , int x) {
         Log.d(TAG, "uploadFromUri:src:" + fileUri.toString());
 
         // [START_EXCLUDE]
@@ -85,9 +88,9 @@ public class MyUploadService extends MyBaseTaskService {
 
         // [START get_child_ref]
         // Get a reference to store file at photos/<FILENAME>.jpg
-        // by changing dif stage we can save the image on dif folder 
+        // by changing dif stage we can save the image on dif folder
 
-        final StorageReference photoRef = mStorageRef.child("stage1")
+        final StorageReference photoRef = mStorageRef.child("stage" + x)
                 .child(fileUri.getLastPathSegment());
         // [END get_child_ref]
 
