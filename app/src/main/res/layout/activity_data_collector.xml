@@ -16,11 +16,27 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:elevation="4dp"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_data_collector" />
+
+    <Button
+        android:id="@+id/add_btn"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_margin="16dp"
+        android:drawableLeft="@drawable/ic_add_black_24dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:paddingTop="15dp"
+        android:elevation="4dp"
+        android:background="@drawable/myrect"
+        android:text="@string/add_data"
+        android:textAllCaps="true" />
 
 </android.support.design.widget.CoordinatorLayout>

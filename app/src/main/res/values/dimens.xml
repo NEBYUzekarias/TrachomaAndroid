@@ -7,4 +7,5 @@
     <dimen name="margin_1">8dp</dimen>
     <dimen name="margin_2">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="notification_size">10dp</dimen>
 </resources>

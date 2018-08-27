@@ -28,4 +28,8 @@
     <string name="about">about</string>
     <string name="title_activity_setup">SetupActivity</string>
     <string name="group_title">uploadall</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="add_data">Add Data</string>
+    <string name="from_gallery">From Gallery</string>
+    <string name="take_photo">Take Photo</string>
 </resources>

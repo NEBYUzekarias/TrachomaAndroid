@@ -7,7 +7,7 @@ import android.content.Context;
 
 import com.google.firebase.quickstart.firebasestorage.DataDao;
 
-@Database(entities = {Data.class}, version = 1)
+@Database(entities = {Data.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract DataDao dataDao();
 

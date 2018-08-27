@@ -23,7 +23,7 @@ public class CountDrawable extends Drawable {
     private boolean mWillDraw;
 
     CountDrawable(Context context) {
-        float mTextSize = context.getResources().getDimension(R.dimen.size);
+        float mTextSize = context.getResources().getDimension(R.dimen.notification_size);
 
         mBadgePaint = new Paint();
         mBadgePaint.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.background_color));
