@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/upload_all"
-        android:title="@string/upload_all"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/ic_group"
+        android:icon="@drawable/actionbar_group_icon"
+        android:title="@string/group_title"
+        app:showAsAction="always" />
+    <item android:id="@+id/action_logout"
+        android:title="@string/upload_failure"
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/info"
