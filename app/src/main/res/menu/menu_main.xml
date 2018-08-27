@@ -8,9 +8,6 @@
         android:icon="@drawable/actionbar_group_icon"
         android:title="@string/group_title"
         app:showAsAction="always" />
-    <item android:id="@+id/action_logout"
-        android:title="@string/upload_failure"
-        app:showAsAction="ifRoom" />
 
     <item android:id="@+id/info"
         android:title="@string/info"

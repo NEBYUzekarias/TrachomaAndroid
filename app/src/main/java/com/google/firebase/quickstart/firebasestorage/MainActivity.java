@@ -160,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        // mAuth = FirebaseAuth.getInstance();
 
         // Click listeners
-        findViewById(R.id.button_camera).setOnClickListener(this);
 
         //floating button
         floatButton = (ImageButton) findViewById(R.id.imageButton);
@@ -323,11 +322,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.button_camera) {
-            launchCamera();
 
-        }
-        else if (i == R.id.upload){
+        if (i == R.id.upload){
 
             launchCamera();
 
