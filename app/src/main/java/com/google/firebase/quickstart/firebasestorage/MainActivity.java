@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    public  CountDrawable badge;
+    private LayerDrawable icon;
 
     private static final String TAG = "Storage#MainActivity";
 
@@ -79,9 +81,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private BroadcastReceiver mBroadcastReceiver;
     private ProgressDialog mProgressDialog;
+    private Drawable reuse;
+    private int count;
     //private FirebaseAuth mAuth;
     ImageButton floatButton;
     View upload;
+    public CountDrawable countDrawable;
 
     private Uri mDownloadUrl = null;
     private Uri mFileUri = null;
@@ -119,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
         mAdapter = new MyAdapter(listener);
         mRecyclerView.setAdapter(mAdapter);
+        countDrawable  = new CountDrawable();
 
         // end of RecycleView
 
@@ -130,6 +136,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onChanged(@Nullable List<Data> datas) {
                 // Update the cached copy of the data in the adapter.
                 mAdapter.setDatas(datas);
+
+//                if (reuse != null && reuse instanceof CountDrawable) {
+//                    badge = (CountDrawable) reuse;
+//                } else {
+//                    badge = new CountDrawable(getApplicationContext());
+//                }
+
+                count = datas.size();
+                if (!datas.isEmpty()) {
+                    for (Data data : datas) {
+                        if (data.isUpload) {
+                             count = count - 1;
+                        }
+                    }
+                }
+                if(icon!=null)
+                setCount(getApplicationContext(), Integer.toString(count),icon  );
             }
         });
 
@@ -318,19 +341,89 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        setCount(this, "9",menu);
+        MenuItem menuItem = menu.findItem(R.id.ic_group);
+        icon = (LayerDrawable) menuItem.getIcon();
+        count = 0;
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                List<Data> datas = mDataViewModel.getAllData().getValue();
+                if (!datas.isEmpty()) {
+
+                    for (Data data : datas) {
+                        if (data.isUpload) {
+
+
+                            Toast.makeText(getApplicationContext(), "Already uploaded", Toast.LENGTH_LONG)
+                                            .show();
+
+
+
+                        } else {
+                            Uri uri;
+                            if (data.path.startsWith("file:///")) {
+                                File file = new File(data.path.substring(8));
+                                uri = Uri.fromFile(file);
+                            } else {
+                                uri = Uri.parse(data.path);
+                            }
+
+                            uploadFromUri(uri , data);
+                        }
+                    }
+                }
+
+                return true;}
+        });
+        List<Data> datas = mDataViewModel.getAllData().getValue();
+
+
+        setCount(getApplicationContext(), Integer.toString(this.count),icon  );
+
+
+
+
         return true;
     }
 
 
-    public void setCount(Context context, String count ,Menu menu) {
-        MenuItem menuItem = menu.findItem(R.id.ic_group);
-        LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
+    public void setCount(Context context, String count , LayerDrawable icon) {
+//        if (!datas.isEmpty()){
+//            for(int i=0 ; i<=(datas.size()-1) ; i ++){
+//        Data dataa = datas.get(i);
+//        if (dataa.isUpload) {
+//            menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()  {
+//                @Override
+//                public boolean onMenuItemClick(MenuItem menuItem) {
+//
+//                    Toast.makeText(context, "Already uploaded", Toast.LENGTH_LONG)
+//                            .show();
+//
+//                    return true;
+//                }
+//            });
+//        }
+//else {
+//        // adding listener to menuItem
+//        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                Uri uri;
+//                if (dataa.path.startsWith("file:///")) {
+//                    File file = new File(dataa.path.substring(8));
+//                    uri = Uri.fromFile(file);
+//                } else {
+//                    uri = Uri.parse(dataa.path);
+//                }
+//
+//                uploadFromUri(uri , dataa);
+//                return true;
+//            }
+//        });}}}
 
-        CountDrawable badge;
 
         // Reuse drawable if possible
-        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_group_count);
+         reuse = icon.findDrawableByLayerId(R.id.ic_group_count);
         if (reuse != null && reuse instanceof CountDrawable) {
             badge = (CountDrawable) reuse;
         } else {
@@ -342,4 +435,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         icon.setDrawableByLayerId(R.id.ic_group_count, badge);
     }
 
+
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuItem item = menu.findItem(R.id.back_item);
+//        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                YourActivity.this.someFunctionInYourActivity();
+//                return true;
+//            }
+//        });
+//        return true;
+//    }
 }
