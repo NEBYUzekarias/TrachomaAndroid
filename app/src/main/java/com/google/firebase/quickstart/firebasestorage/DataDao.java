@@ -26,4 +26,7 @@ public interface DataDao {
 
     @Delete
     void deleteDatas(Data... datas);
+
+    @Query("UPDATE data SET is_upload = :is_upload where id = :id")
+    void updateUploadStatus(boolean is_upload, int id);
 }

@@ -68,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final int RC_TAKE_PICTURE = 101;
 
+    public static final String DATA_ID = "data_id";
+    public static final String DATA_STAGE = "data_stage";
+
     private static final String KEY_FILE_URI = "key_file_uri";
     private static final String KEY_DOWNLOAD_URL = "key_download_url";
 
@@ -109,13 +112,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 uri = Uri.parse(data.path);
             }
 
-            uploadFromUri(uri , data.stage);
+            uploadFromUri(uri , data);
         };
         mAdapter = new MyAdapter(listener);
         mRecyclerView.setAdapter(mAdapter);
-
-
-
 
         // end of RecycleView
 
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 //    }
 
-    private void uploadFromUri(Uri fileUri, int i) {
+    private void uploadFromUri(Uri fileUri, Data data) {
         Log.d(TAG, "uploadFromUri:src:" + fileUri.toString());
 
         // Save the File URI
@@ -235,8 +235,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Start MyUploadService to upload the file, so that the file is uploaded
         // even if this Activity is killed or put in the background
         ComponentName componentName = startService(new Intent(this, MyUploadService.class)
-                .putExtra(MyUploadService.EXTRA_FILE_URI, fileUri )
-                .setFlags(i)
+                .putExtra(MyUploadService.EXTRA_FILE_URI, fileUri)
+                .putExtra(DATA_ID, data.id)
+                .putExtra(DATA_STAGE, data.stage)
                 .setAction(MyUploadService.ACTION_UPLOAD));
 
         // Show loading spinner
@@ -255,7 +256,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     private void onUploadResultIntent(Intent intent) {
         // Got a new intent from MyUploadService with a success or failure
         mDownloadUrl = intent.getParcelableExtra(MyUploadService.EXTRA_DOWNLOAD_URL);
@@ -263,7 +263,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
-
 
 
     private void showProgressDialog(String caption) {

@@ -16,7 +16,8 @@
     <string name="progress_auth">Signing In…</string>
 
     <string name="upload_success">Upload finished</string>
-    <string name="upload_failure">Upload failed</string>\
+    <string name="upload_failure">Upload failed</string>
+    <string name="upload_all">Upload All</string>
 
     <string name="download_success">Download finished</string>
     <string name="download_failure">Download failure</string>

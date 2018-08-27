@@ -60,8 +60,13 @@ public class MyUploadService extends MyBaseTaskService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand:" + intent + ":" + startId);
         if (ACTION_UPLOAD.equals(intent.getAction())) {
-            Uri fileUri = intent.getParcelableExtra(EXTRA_FILE_URI );
-            int stag = intent.getFlags();
+            Uri fileUri = intent.getParcelableExtra(EXTRA_FILE_URI);
+            int stage = intent.getIntExtra(MainActivity.DATA_STAGE, -1);
+            int data_id = intent.getIntExtra(MainActivity.DATA_ID, -1);
+
+            if (stage == -1 || data_id == -1) {
+                return START_NOT_STICKY; // don't bother restarting service when memory sufficient
+            }
 
             if (!fileUri.getScheme().equals("file")) {
                 // Make sure we have permission to read the data
@@ -72,14 +77,14 @@ public class MyUploadService extends MyBaseTaskService {
                 }
             }
 
-            uploadFromUri(fileUri, stag);
+            uploadFromUri(fileUri, stage, data_id);
         }
 
         return START_REDELIVER_INTENT;
     }
 
     // [START upload_from_uri]
-    private void uploadFromUri(final Uri fileUri , int x) {
+    private void uploadFromUri(final Uri fileUri , int stage, int data_id) {
         Log.d(TAG, "uploadFromUri:src:" + fileUri.toString());
 
         // [START_EXCLUDE]
@@ -91,7 +96,7 @@ public class MyUploadService extends MyBaseTaskService {
         // Get a reference to store file at photos/<FILENAME>.jpg
         // by changing dif stage we can save the image on dif folder
 
-        final StorageReference photoRef = mStorageRef.child("stage" + x)
+        final StorageReference photoRef = mStorageRef.child("stage" + stage)
                 .child(fileUri.getLastPathSegment());
         // [END get_child_ref]
 
@@ -131,6 +136,10 @@ public class MyUploadService extends MyBaseTaskService {
                         showUploadFinishedNotification(downloadUri, fileUri);
                         taskCompleted();
                         // [END_EXCLUDE]
+
+                        Log.i("service", fileUri.toString());
+                        DataRepository repo = new DataRepository(MyUploadService.this);
+                        repo.updateUploadStatus(true, data_id);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -1,15 +1,20 @@
 package com.google.firebase.quickstart.firebasestorage;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,6 +39,8 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
 
     private final int GET_SINGLE_IMAGE = 1;
     private final int CAPTURE_IMAGE = 2;
+
+    private final int REQUEST_WRITE_EXTERNAL = 1;
 
     private LinearLayout mStagesView;
     private RadioGroup mStageRadios;
@@ -90,9 +98,10 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
 
         // Continue only if the File was successfully created
         if (photoFile != null) {
-            Uri photoURI = FileProvider.getUriForFile(this,
-                    "com.example.android.fileprovider",
-                    photoFile);
+//            Uri photoURI = FileProvider.getUriForFile(this,
+//                    "com.example.android.fileprovider",
+//                    photoFile);
+            Uri photoURI = Uri.fromFile(photoFile);
             Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             takePicture.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
             startActivityForResult(takePicture, CAPTURE_IMAGE);
@@ -102,23 +111,34 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
     }
 
     private File createImageFile() throws IOException {
+        File image = null;
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "DATA_" + timeStamp + "_";
 
-        // handle storage direcotory
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        storageDir.mkdirs();
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_WRITE_EXTERNAL);
+        } else {
+            Log.i("my", "permission granted");
+            // handle storage direcotory
+            File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            storageDir.mkdirs();
 
-        // create temp file
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
+            // create temp file
+            image = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
 
-        // Save a file path for use when returning to this Activity
-        mCapturedPhotoPath = image.getAbsolutePath();
+            // Save a file path for use when returning to this Activity
+            mCapturedPhotoPath = image.getAbsolutePath();
+        }
+
         return image;
     }
 
@@ -250,9 +270,6 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
             case R.id.info:
 
                 return true;
-            case R.id.setup:
-
-                return true;
             case R.id.about:
 
                 return true;
@@ -285,6 +302,26 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
                     break;
             }
         }
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_WRITE_EXTERNAL:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast toast = Toast.makeText(this,
+                            "You can take picture now.",
+                            Toast.LENGTH_LONG);
+                    toast.show();
+                } else {
+                    Toast toast = Toast.makeText(this,
+                            "You have to grant permission to take picture.",
+                            Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
+                return;
+        }
     }
 }

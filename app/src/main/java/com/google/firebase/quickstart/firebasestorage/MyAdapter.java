@@ -11,35 +11,35 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-   // public List<Data> mDataset;
 
+    private List<Data> mDataset;
 
-   private List<Data> mDataset;
-   private ArrayList image;
+    private RecyclerViewClickListener mListener;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
-        ImageView imageView;
+        public ImageView imageView;
         public TextView mTextView;
+        public View button ;
         private RecyclerViewClickListener mListener;
 
-        View button ;
         public ViewHolder(View v  , RecyclerViewClickListener listener ) {
             super(v);
             mTextView = (TextView)v.findViewById(R.id.tv_android);
             imageView = (ImageView)v.findViewById(R.id.img_android);
-            mListener = listener;
             button = (View)v.findViewById(R.id.upload);
-            button.setOnClickListener(this);
 
+            button.setOnClickListener(this);
+            mListener = listener;
         }
 
         @Override
@@ -49,7 +49,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         }
     }
-    private RecyclerViewClickListener mListener;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public MyAdapter(RecyclerViewClickListener listener) {
@@ -77,11 +76,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText("stage"+mDataset.get(position).stage);
-        Uri uri = Uri.parse(mDataset.get(position).path);
-       // Bitmap myBitmap = BitmapFactory.decodeFile(.getAbsolutePath());
-         holder.imageView.setImageURI(uri);
-        // holder.imageView.setImageResource((Integer) image.get(position));
+        Data selectedData = mDataset.get(position);
+        holder.mTextView.setText("stage" + selectedData.stage);
+        Uri uri = Uri.parse(selectedData.path);
+        holder.imageView.setImageURI(uri);
+        if (selectedData.isUpload) {
+            holder.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(view.getContext(), "Already uploaded", Toast.LENGTH_LONG)
+                            .show();
+                }
+            });
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

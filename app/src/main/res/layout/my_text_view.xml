@@ -55,8 +55,6 @@
             android:layout_alignParentEnd="true" />
 
 
-
-
         <TextView
             android:layout_marginTop="10dp"
             android:textSize="18sp"
