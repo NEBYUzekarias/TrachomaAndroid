@@ -31,58 +31,147 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/take_photo" />/>
+                android:text="@string/take_photo" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/stages_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/stages_view">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose stage" />
 
             <RadioGroup
                 android:id="@+id/stage_radios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                
-                <RadioButton
-                    android:id="@+id/radio_1"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Stage 1"/>
-                <RadioButton
-                    android:id="@+id/radio_2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Stage 2"/>
-                <RadioButton
-                    android:id="@+id/radio_3"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Stage 3"/>
-                <RadioButton
-                    android:id="@+id/radio_4"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Stage 4"/>
-                <RadioButton
-                    android:id="@+id/radio_5"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Stage 5"/>
-            </RadioGroup>
-        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/selected_image"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/gallery" />
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_1"
+                    style="@style/radioCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onCardRadioButtonClicked">
+
+                    <FrameLayout
+                        style="@style/radioFrame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/radio_1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="onRadioButtonClicked"
+                            android:text="Stage 1" />
+                    </FrameLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_2"
+                    style="@style/radioCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onCardRadioButtonClicked">
+
+                    <FrameLayout
+                        style="@style/radioFrame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/radio_2"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="onRadioButtonClicked"
+                            android:text="Stage 2" />
+                    </FrameLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_3"
+                    style="@style/radioCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onCardRadioButtonClicked">
+
+                    <FrameLayout
+                        style="@style/radioFrame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/radio_3"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="onRadioButtonClicked"
+                            android:text="Stage 3" />
+                    </FrameLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_4"
+                    style="@style/radioCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onCardRadioButtonClicked">
+
+                    <FrameLayout
+                        style="@style/radioFrame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/radio_4"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="onRadioButtonClicked"
+                            android:text="Stage 4" />
+                    </FrameLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/card_5"
+                    style="@style/radioCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="onCardRadioButtonClicked">
+
+                    <FrameLayout
+                        style="@style/radioFrame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/radio_5"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:onClick="onRadioButtonClicked"
+                            android:text="Stage 5" />
+                    </FrameLayout>
+                </android.support.v7.widget.CardView>
+            </RadioGroup>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/radioCardView"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/selected_image"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/gallery" />
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

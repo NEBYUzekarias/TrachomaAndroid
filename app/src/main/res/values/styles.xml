@@ -7,7 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <!--change text color of all buttons-->
         <item name="android:buttonStyle">@style/buttonColor</item>
+        
+        <item name="colorControlNormal">@color/colorPrimaryDark</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
 
         <!--change text appearances-->
         <item name="android:textColor">@color/textPrimary</item>
@@ -18,7 +22,7 @@
         <item name="android:windowBackground">@color/activityBackground</item>
     </style>
 
-    <!--trying to change text color of all buttons-->
+    <!--change text color of all buttons-->
     <style name="buttonColor" parent="@android:style/Widget.Button">
         <item name="android:textColor">@color/textPrimary</item>
     </style>
@@ -39,6 +43,23 @@
         <item name="android:textColorPrimary">@color/textPrimary</item>
         <item name="android:actionMenuTextColor">@color/textPrimary</item>
         <item name="android:textColorSecondary">@color/textSecondary</item>
+    </style>
+
+    <!--card views for radio buttons of stage selection-->
+    <style name="radioCardView">
+        <item name="cardElevation">2dp</item>
+        <item name="cardCornerRadius">2dp</item>
+        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+    </style>
+
+    <style name="radioFrame">
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingLeft">24dp</item>
+        <item name="android:paddingRight">24dp</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

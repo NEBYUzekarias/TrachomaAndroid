@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -33,7 +34,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DataCollector extends AppCompatActivity implements View.OnClickListener {
 
@@ -44,6 +47,8 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
 
     private LinearLayout mStagesView;
     private RadioGroup mStageRadios;
+    private RadioButton[] mRadios;
+    private List<CardView> mCards;
     private ImageView mSelectedImage;
     private Uri mSelectedUri;
 
@@ -68,7 +73,21 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         mSelectedImage = (ImageView) findViewById(R.id.selected_image);
         mStageRadios = (RadioGroup) findViewById(R.id.stage_radios);
         mStagesView = (LinearLayout) findViewById(R.id.stages_view);
-//        mStagesView.setVisibility(View.GONE);
+
+        mRadios = new RadioButton[]{
+                (RadioButton) findViewById(R.id.radio_1),
+                (RadioButton) findViewById(R.id.radio_2),
+                (RadioButton) findViewById(R.id.radio_3),
+                (RadioButton) findViewById(R.id.radio_4),
+                (RadioButton) findViewById(R.id.radio_5),
+        };
+
+        mCards = new ArrayList<>();
+        mCards.add((CardView) findViewById(R.id.card_1));
+        mCards.add((CardView) findViewById(R.id.card_2));
+        mCards.add((CardView) findViewById(R.id.card_3));
+        mCards.add((CardView) findViewById(R.id.card_4));
+        mCards.add((CardView) findViewById(R.id.card_5));
 
         // get view model for data
         mDataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
@@ -284,7 +303,9 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
 
         // Check which radio button was clicked
         if (checked) {
-            switch (view.getId()) {
+            int radio_id = view.getId();
+            setRadio(radio_id);
+            switch (radio_id) {
                 case R.id.radio_1:
                     mData.stage = 1;
                     break;
@@ -301,6 +322,45 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
                     mData.stage = 5;
                     break;
             }
+        }
+    }
+
+    // set all radio buttons unchecked when one is selected
+    public void setRadio(int radio_id) {
+        for (RadioButton radioButton: mRadios) {
+            radioButton.setChecked(radio_id == radioButton.getId());
+        }
+    }
+
+    public void onCardRadioButtonClicked(View view) {
+            int card_id = view.getId();
+            setCardRadio((CardView) view);
+            switch (card_id) {
+                case R.id.card_1:
+                    mData.stage = 1;
+                    break;
+                case R.id.card_2:
+                    mData.stage = 2;
+                    break;
+                case R.id.card_3:
+                    mData.stage = 3;
+                    break;
+                case R.id.card_4:
+                    mData.stage = 4;
+                    break;
+                case R.id.card_5:
+                    mData.stage = 5;
+                    break;
+            }
+
+    }
+
+    // set all radio buttons unchecked when one is selected
+    public void setCardRadio(CardView cardView) {
+        int index = mCards.indexOf(cardView);
+
+        for (int i=0;i < mRadios.length;i++) {
+            mRadios[i].setChecked(index == i);
         }
     }
 
