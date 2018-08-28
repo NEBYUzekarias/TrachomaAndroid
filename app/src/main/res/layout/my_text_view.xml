@@ -40,19 +40,21 @@
             <!--android:contentDescription="@string/todo" />-->
 
 
-        <view
+        <Button
             android:id="@+id/Delet"
-            class="mbanje.kurt.fabbutton.FabButton"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:clickable="true"
-            android:src="@drawable/ic_delete"
-
-            android:color="?attr/actionBarDivider"
-
+            android:focusable="true"
+            android:drawableLeft="@drawable/ic_delete"
+            android:drawableStart="@drawable/ic_delete"
+            android:color="?attr/colorPrimary"
             />
+
+
 
 
         <!--<TextView-->
@@ -76,7 +78,7 @@
 
             android:layout_toStartOf="@+id/Delet"
             android:clickable="true"
-            android:color="?attr/colorPrimaryDark"
+            android:color="?attr/colorPrimary"
             android:indeterminate="false"
             android:indeterminateDuration="1000"
             android:max="100"

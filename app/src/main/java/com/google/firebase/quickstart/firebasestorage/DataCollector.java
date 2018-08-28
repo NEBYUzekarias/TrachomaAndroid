@@ -187,7 +187,7 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         mData = new Data();
 
         mSelectedImage.setImageResource(R.drawable.gallery);
-        mStageRadios.clearCheck();
+        setRadio(-1);
     }
 
     public void showStagesArea() {
