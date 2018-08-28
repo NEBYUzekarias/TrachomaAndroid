@@ -41,28 +41,18 @@
 
 
         <view
-            android:id="@+id/upload"
+            android:id="@+id/Delet"
             class="mbanje.kurt.fabbutton.FabButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:clickable="true"
+            android:src="@drawable/ic_delete"
 
-            android:color="?attr/colorPrimaryDark"
-            android:indeterminate="false"
-            android:indeterminateDuration="1000"
-            android:max="100"
-            android:progress="80"
-            android:src="@android:drawable/ic_menu_upload"
-            android:visibility="visible"
-            app:fbb_autoStart="true"
-            app:fbb_endBitmap="@drawable/ic_fab_complete"
-            app:fbb_hideProgressOnComplete="false"
-            app:fbb_progressColor="#ff00"
-            app:fbb_progressWidthRatio="0.12"
-            app:fbb_showEndBitmap="false"
-            app:fbb_showShadow="true" />
+            android:color="?attr/actionBarDivider"
+
+            />
 
 
         <!--<TextView-->
@@ -78,19 +68,21 @@
             <!--android:textStyle="bold" />-->
 
         <view
-            android:id="@+id/Delet"
+            android:id="@+id/upload"
             class="mbanje.kurt.fabbutton.FabButton"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
 
-            android:layout_toStartOf="@+id/upload"
+            android:layout_toStartOf="@+id/Delet"
             android:clickable="true"
             android:color="?attr/colorPrimaryDark"
             android:indeterminate="false"
             android:indeterminateDuration="1000"
             android:max="100"
-            android:src="@android:drawable/ic_delete"
+            android:src="@android:drawable/ic_menu_upload"
+            android:progress="80"
+
             android:visibility="visible"
             app:fbb_autoStart="true"
             app:fbb_endBitmap="@drawable/ic_fab_complete"
@@ -98,7 +90,7 @@
             app:fbb_progressColor="#ff00"
             app:fbb_progressWidthRatio="0.12"
             app:fbb_showEndBitmap="false"
-            android:layout_toLeftOf="@+id/upload"
+            android:layout_toLeftOf="@+id/Delet"
             android:focusable="true" />
 
         <TextView

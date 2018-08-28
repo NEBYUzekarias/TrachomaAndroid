@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrim</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
-
+        <item name="actionBarDivider">@color/actionBarDivider</item>
         <item name="android:buttonStyle">@style/buttonColor</item>
 
         <!--change text appearances-->
