@@ -122,7 +122,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             uploadFromUri(uri , data);
         };
-        mAdapter = new MyAdapter(listener);
+        MyAdapter.ButtonListener buttonListener = new MyAdapter.ButtonListener() {
+            @Override
+            public void deleteOnClick(View v, Data position) {
+
+
+                mDataViewModel.deleteData(position);
+            }
+        };
+        mAdapter = new MyAdapter(listener , buttonListener);
         mRecyclerView.setAdapter(mAdapter);
         countDrawable  = new CountDrawable();
 

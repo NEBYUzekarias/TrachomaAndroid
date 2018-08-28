@@ -21,6 +21,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<Data> mDataset;
 
     private RecyclerViewClickListener mListener;
+    public ButtonListener onClickListener;
+
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -30,6 +32,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ImageView imageView;
         public TextView mTextView;
         public View button ;
+        private View delete;
         private RecyclerViewClickListener mListener;
 
         public ViewHolder(View v  , RecyclerViewClickListener listener ) {
@@ -37,7 +40,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mTextView = (TextView)v.findViewById(R.id.tv_android);
             imageView = (ImageView)v.findViewById(R.id.img_android);
             button = (View)v.findViewById(R.id.upload);
-
+            delete = v.findViewById(R.id.Delete);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.deleteOnClick(v, MyAdapter.this.mDataset.get(getAdapterPosition()));
+                }
+            });
             button.setOnClickListener(this);
             mListener = listener;
         }
@@ -51,9 +60,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(RecyclerViewClickListener listener) {
-        mListener = listener;
+    public MyAdapter(RecyclerViewClickListener listener , ButtonListener buttonListener) {
+        this.mListener = listener;
+        this.onClickListener = buttonListener;
     }
+
 
     public void setDatas(List<Data> datas) {
         mDataset = datas;
@@ -91,6 +102,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
+
+
+    public interface ButtonListener {
+
+        void deleteOnClick(View v, Data position);
+
+    }
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {

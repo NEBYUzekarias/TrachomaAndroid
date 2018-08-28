@@ -20,5 +20,6 @@ public class DataViewModel extends AndroidViewModel {
     LiveData<List<Data>> getAllData() { return mAllData; }
 
     public void insertData(Data data) { mRepository.insert(data); }
+    public void deleteData(Data data) { mRepository.delete(data);}
 
 }

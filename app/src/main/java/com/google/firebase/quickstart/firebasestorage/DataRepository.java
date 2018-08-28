@@ -39,6 +39,27 @@ public class DataRepository {
         }
     }
 
+
+
+    public void delete(Data data){
+        new DeleteAsyncTask(mDataDao).execute(data);
+    }
+    private static class DeleteAsyncTask extends AsyncTask<Data, Void, Void> {
+        private DataDao mAsyncTaskDao;
+
+        DeleteAsyncTask(DataDao dataDao) {
+            mAsyncTaskDao = dataDao;
+        }
+
+        @Override
+        protected Void doInBackground(Data... datas) {
+            mAsyncTaskDao.deleteDatas(datas[0]);
+            return null;
+        }
+    }
+
+
+
     public void updateUploadStatus(boolean is_upload, int data_id) {
         new UpdateUploadStatusTask(mDataDao).execute(new UpdateParams(data_id, is_upload));
     }
