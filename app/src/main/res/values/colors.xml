@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFA000</color>
-    <color name="colorPrimaryDark">#a66800</color>
+    <color name="colorPrimaryDark">#FFA000</color>
+    <color name="colorPrimary">#a66800</color>
+    <color name="colorPrim">#FFA000</color>
+
     <color name="colorAccent">#FFA000</color>
 
     <color name="background_color">#000000</color>
@@ -9,5 +11,7 @@
     <color name="textPrimary">#000000</color>
     <color name="textSecondary">#444444</color>
 
-    <color name="activityBackground">#dddddd</color>
+    <color name="activityBackground">#c0c0c0</color>
+
+    <color name="actionBarDivider">#FFFFFF</color>
 </resources>
