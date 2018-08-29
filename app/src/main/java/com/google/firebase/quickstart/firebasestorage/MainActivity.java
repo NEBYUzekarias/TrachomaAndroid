@@ -28,12 +28,14 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,11 +45,24 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.ListPreloader;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
+
+import com.bumptech.glide.util.FixedPreloadSizeProvider;
+
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+
+import static android.media.CamcorderProfile.get;
 
 //import com.google.firebase.auth.AuthResult;
 //import com.google.firebase.auth.FirebaseAuth;
@@ -83,6 +98,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog mProgressDialog;
     private Drawable reuse;
     private int count;
+
+    private final int imageWidthPixels = 1024;
+    private final int imageHeightPixels = 768;
     //private FirebaseAuth mAuth;
     ImageButton floatButton;
     View upload;
@@ -103,9 +121,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // start RecycleView
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
+
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setDrawingCacheEnabled(true);
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
@@ -122,7 +143,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             uploadFromUri(uri , data);
         };
-        mAdapter = new MyAdapter(listener);
+        MyAdapter.ButtonListener buttonListener = new MyAdapter.ButtonListener() {
+            @Override
+            public void deleteOnClick(View v, Data position) {
+
+
+                mDataViewModel.deleteData(position);
+            }
+        };
+        mAdapter = new MyAdapter(listener , buttonListener);
         mRecyclerView.setAdapter(mAdapter);
         countDrawable  = new CountDrawable();
 
@@ -446,4 +475,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        });
 //        return true;
 //    }
+
+
 }

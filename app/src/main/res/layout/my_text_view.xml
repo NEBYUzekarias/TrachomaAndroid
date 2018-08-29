@@ -41,7 +41,7 @@
 
 
         <Button
-            android:id="@+id/Delet"
+            android:id="@+id/Delete"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -76,7 +76,7 @@
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
 
-            android:layout_toStartOf="@+id/Delet"
+            android:layout_toStartOf="@+id/Delete"
             android:clickable="true"
             android:color="?attr/colorPrimary"
             android:indeterminate="false"
@@ -92,7 +92,7 @@
             app:fbb_progressColor="#ff00"
             app:fbb_progressWidthRatio="0.12"
             app:fbb_showEndBitmap="false"
-            android:layout_toLeftOf="@+id/Delet"
+            android:layout_toLeftOf="@+id/Delete"
             android:focusable="true" />
 
         <TextView
