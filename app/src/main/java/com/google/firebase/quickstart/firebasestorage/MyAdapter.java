@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,22 +35,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // each data item is just a string in this case
         public ImageView imageView;
         public TextView mTextView;
-        public View button ;
-        private View delete;
+        public ImageButton button ;
+        private ImageButton delete;
         private RecyclerViewClickListener mListener;
 
         public ViewHolder(View v  , RecyclerViewClickListener listener ) {
             super(v);
             mTextView = (TextView)v.findViewById(R.id.tv_android);
             imageView = (ImageView)v.findViewById(R.id.img_android);
-            button = (View)v.findViewById(R.id.upload);
-            delete = v.findViewById(R.id.Delete);
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onClickListener.deleteOnClick(v, MyAdapter.this.mDataset.get(getAdapterPosition()));
-                }
-            });
+            button = (ImageButton) v.findViewById(R.id.upload);
+            delete =(ImageButton) v.findViewById(R.id.Delete);
+            delete.setOnClickListener(v1 -> onClickListener.deleteOnClick(v1, MyAdapter.this.mDataset.get(getAdapterPosition())));
             button.setOnClickListener(this);
             mListener = listener;
         }
@@ -104,7 +100,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                             .show();
                 }
             });
-            holder.mTextView.setText("stage" + selectedData.stage + "uploaded");
+            holder.mTextView.setText("stage" + selectedData.stage + " is uploaded");
 
             holder.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,7 +109,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                             .show();
                 }
             });
-
+            holder.button.setImageResource(R.drawable.ic_fab_complete);
         }
     }
 

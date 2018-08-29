@@ -40,7 +40,7 @@
             <!--android:contentDescription="@string/todo" />-->
 
 
-        <Button
+        <ImageButton
             android:id="@+id/Delete"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="60dp"
@@ -68,32 +68,47 @@
             <!--android:textAlignment="center"-->
             <!--android:textSize="18sp"-->
             <!--android:textStyle="bold" />-->
-
-        <view
+        <ImageButton
             android:id="@+id/upload"
-            class="mbanje.kurt.fabbutton.FabButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
-
             android:layout_toStartOf="@+id/Delete"
+
             android:clickable="true"
             android:color="?attr/colorPrimary"
-            android:indeterminate="false"
-            android:indeterminateDuration="1000"
-            android:max="100"
-            android:src="@android:drawable/ic_menu_upload"
-            android:progress="80"
+            android:drawableLeft="@drawable/ic_delete"
+            android:drawableStart="@drawable/ic_delete"
+            android:focusable="true"
+            android:src="@android:drawable/ic_menu_upload" />
 
-            android:visibility="visible"
-            app:fbb_autoStart="true"
-            app:fbb_endBitmap="@drawable/ic_fab_complete"
-            app:fbb_hideProgressOnComplete="false"
-            app:fbb_progressColor="#ff00"
-            app:fbb_progressWidthRatio="0.12"
-            app:fbb_showEndBitmap="false"
-            android:layout_toLeftOf="@+id/Delete"
-            android:focusable="true" />
+
+        <!--<view-->
+            <!--android:id="@+id/upld"-->
+            <!--class="mbanje.kurt.fabbutton.FabButton"-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:layout_alignParentTop="true"-->
+
+            <!--android:layout_toStartOf="@+id/Delete"-->
+            <!--android:clickable="true"-->
+            <!--android:color="?attr/colorPrimary"-->
+            <!--android:indeterminate="false"-->
+            <!--android:indeterminateDuration="1000"-->
+            <!--android:max="100"-->
+            <!--android:src="@android:drawable/ic_menu_upload"-->
+            <!--android:progress="80"-->
+
+            <!--android:visibility="visible"-->
+            <!--app:fbb_autoStart="true"-->
+            <!--app:fbb_endBitmap="@drawable/ic_fab_complete"-->
+            <!--app:fbb_hideProgressOnComplete="false"-->
+            <!--app:fbb_progressColor="#ff00"-->
+            <!--app:fbb_progressWidthRatio="0.12"-->
+            <!--app:fbb_showEndBitmap="false"-->
+            <!--android:layout_toLeftOf="@+id/Delete"-->
+            <!--android:focusable="true" />-->
 
         <TextView
             android:id="@+id/tv_android"
