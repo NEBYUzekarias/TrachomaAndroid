@@ -104,6 +104,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                             .show();
                 }
             });
+            holder.mTextView.setText("stage" + selectedData.stage + "uploaded");
+
+            holder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(view.getContext(), "Already uploaded", Toast.LENGTH_LONG)
+                            .show();
+                }
+            });
+
         }
     }
 
