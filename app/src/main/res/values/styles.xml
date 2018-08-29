@@ -47,13 +47,19 @@
     </style>
 
     <!--card views for radio buttons of stage selection-->
-    <style name="radioCardView">
+    <style name="cardView">
         <item name="cardElevation">2dp</item>
         <item name="cardCornerRadius">2dp</item>
-        <item name="android:layout_marginBottom">1dp</item>
-        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:layout_marginTop">4dp</item>
         <item name="android:layout_marginLeft">4dp</item>
         <item name="android:layout_marginRight">4dp</item>
+    </style>
+    <style name="radioCardView" parent="cardView">
+        <item name="android:layout_marginRight">48dp</item>
+        <item name="android:layout_marginLeft">48dp</item>
+        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:layout_marginTop">1dp</item>
     </style>
 
     <style name="radioFrame">

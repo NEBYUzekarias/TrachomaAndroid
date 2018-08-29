@@ -14,48 +14,65 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="151dp"
         tools:layout_editor_absoluteY="16dp">
+
         <android.support.v7.widget.CardView
-            style="@style/radioCardView"
+            style="@style/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp">
+
+                <Button
+                    android:id="@+id/gallery_btn"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/from_gallery" />
+
+                <Button
+                    android:id="@+id/capture_btn"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/take_photo" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            style="@style/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/gallery_btn"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/from_gallery" />
-
-
-            <Button
-                android:id="@+id/capture_btn"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/take_photo" />
-        </LinearLayout>
-        </android.support.v7.widget.CardView>
-        <LinearLayout
             android:id="@+id/stages_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
             <android.support.v7.widget.CardView
                 style="@style/radioCardView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-            <TextView
-                android:layout_width="105dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:text="Choose stage" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Choose stage" />
             </android.support.v7.widget.CardView>
 
             <RadioGroup
@@ -169,20 +186,24 @@
                 </android.support.v7.widget.CardView>
             </RadioGroup>
 
-            <android.support.v7.widget.CardView
-                style="@style/radioCardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-
-                <ImageView
-                    android:id="@+id/selected_image"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/gallery" />
-            </android.support.v7.widget.CardView>
-
         </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            style="@style/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/selected_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/gallery" />
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
