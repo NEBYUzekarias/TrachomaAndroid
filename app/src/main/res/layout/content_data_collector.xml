@@ -72,12 +72,12 @@
 
                     <FrameLayout
                         style="@style/radioFrame"
-                        android:layout_width="366dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
                         <RadioButton
                             android:id="@+id/radio_1"
-                            android:layout_width="105dp"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:onClick="onRadioButtonClicked"
                             android:text="Stage 1" />
@@ -152,7 +152,6 @@
                     style="@style/radioCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:onClick="onCardRadioButtonClicked">
 
                     <FrameLayout
@@ -164,7 +163,6 @@
                             android:id="@+id/radio_5"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
                             android:onClick="onRadioButtonClicked"
                             android:text="Stage 5" />
                     </FrameLayout>

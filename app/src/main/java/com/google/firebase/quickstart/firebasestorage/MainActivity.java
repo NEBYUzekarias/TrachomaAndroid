@@ -16,7 +16,6 @@
 
 package com.google.firebase.quickstart.firebasestorage;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -28,51 +27,25 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.ListPreloader;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
-
-import com.bumptech.glide.util.FixedPreloadSizeProvider;
-
 import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
-
-import static android.media.CamcorderProfile.get;
-
-//import com.google.firebase.auth.AuthResult;
-//import com.google.firebase.auth.FirebaseAuth;
-//import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Activity to upload and download photos from Firebase Storage.
  *
  * See {@link MyUploadService} for upload example.
- * See {@link MyDownloadService} for download example.
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -238,7 +211,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Register receiver for uploads and downloads
         LocalBroadcastManager manager = LocalBroadcastManager.getInstance(this);
-        manager.registerReceiver(mBroadcastReceiver, MyDownloadService.getIntentFilter());
         manager.registerReceiver(mBroadcastReceiver, MyUploadService.getIntentFilter());
     }
 
