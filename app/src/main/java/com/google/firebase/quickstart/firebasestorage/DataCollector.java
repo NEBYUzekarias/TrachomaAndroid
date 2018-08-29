@@ -56,6 +56,8 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collector);
+
+        // set toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -83,11 +85,12 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         mCards.add((CardView) findViewById(R.id.card_4));
         mCards.add((CardView) findViewById(R.id.card_5));
 
-        // get view model for data
+        // get view model for data source
         mDataViewModel = ViewModelProviders.of(this).get(DataViewModel.class);
 
         // create fresh data to save details
         mData = new Data();
+        Log.i("data", "fresh data stage: " + mData.stage);
     }
 
     private void chooseFromGallery() {
@@ -156,12 +159,12 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
     }
 
     public boolean storeDataDetails() {
-        if (mData.stage == 0){
+        if (mData.stage == 0) {
             Toast.makeText(this, "No Stage Selected", Toast.LENGTH_LONG)
                     .show();
             return false;
         } else {
-            if (mSelectedUri != null){
+            if (mSelectedUri != null) {
                 mData.path = mSelectedUri.toString();
 
                 // insert data only when it is valid, otherwise notify users
@@ -181,7 +184,7 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         mData = new Data();
 
         mSelectedImage.setImageResource(R.drawable.gallery);
-        setRadio(-1);
+        setRadio(-1);   // resets radio buttons
     }
 
     @Override
@@ -199,7 +202,7 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.add_btn:
                 boolean detailsStored = storeDataDetails();
-                if (detailsStored){
+                if (detailsStored) {
                     resetState();
                 }
 
@@ -269,7 +272,6 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         // Check which radio button was clicked
         if (checked) {
             int radio_id = view.getId();
-            setRadio(radio_id);
             switch (radio_id) {
                 case R.id.radio_1:
                     mData.stage = 1;
@@ -287,44 +289,50 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
                     mData.stage = 5;
                     break;
             }
+
+            // setup ui that only one radio is selected
+            setRadio(radio_id);
         }
     }
 
-    // set all radio buttons unchecked when one is selected
+    // set all radio buttons unchecked except the selected one
     public void setRadio(int radio_id) {
-        for (RadioButton radioButton: mRadios) {
+        for (RadioButton radioButton : mRadios) {
             radioButton.setChecked(radio_id == radioButton.getId());
         }
     }
 
+    // set all radio buttons unchecked
+    // except the radio button on the clicked card view
     public void onCardRadioButtonClicked(View view) {
-            int card_id = view.getId();
-            setCardRadio((CardView) view);
-            switch (card_id) {
-                case R.id.card_1:
-                    mData.stage = 1;
-                    break;
-                case R.id.card_2:
-                    mData.stage = 2;
-                    break;
-                case R.id.card_3:
-                    mData.stage = 3;
-                    break;
-                case R.id.card_4:
-                    mData.stage = 4;
-                    break;
-                case R.id.card_5:
-                    mData.stage = 5;
-                    break;
-            }
+        int card_id = view.getId();
+        switch (card_id) {
+            case R.id.card_1:
+                mData.stage = 1;
+                break;
+            case R.id.card_2:
+                mData.stage = 2;
+                break;
+            case R.id.card_3:
+                mData.stage = 3;
+                break;
+            case R.id.card_4:
+                mData.stage = 4;
+                break;
+            case R.id.card_5:
+                mData.stage = 5;
+                break;
+        }
 
+        // handle ui to check only the radio selected
+        setCardRadio((CardView) view);
     }
 
-    // set all radio buttons unchecked when one is selected
+    // set all radio buttons unchecked except the selected radio
     public void setCardRadio(CardView cardView) {
         int index = mCards.indexOf(cardView);
 
-        for (int i=0;i < mRadios.length;i++) {
+        for (int i = 0; i < mRadios.length; i++) {
             mRadios[i].setChecked(index == i);
         }
     }
@@ -335,18 +343,14 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
             case REQUEST_WRITE_EXTERNAL:
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast toast = Toast.makeText(this,
-                            "You can take picture now.",
-                            Toast.LENGTH_LONG);
-                    toast.show();
+                    // since request is granted after asking to capture, let 'em capture
+                    captureImage();
                 } else {
                     Toast toast = Toast.makeText(this,
                             "You have to grant permission to take picture.",
                             Toast.LENGTH_LONG);
                     toast.show();
                 }
-
-                return;
         }
     }
 }
