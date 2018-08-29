@@ -35,16 +35,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // each data item is just a string in this case
         public ImageView imageView;
         public TextView mTextView;
-        public ImageButton button ;
-        private ImageButton delete;
+        public ImageView button ;
+        private ImageView delete;
         private RecyclerViewClickListener mListener;
 
         public ViewHolder(View v  , RecyclerViewClickListener listener ) {
             super(v);
             mTextView = (TextView)v.findViewById(R.id.tv_android);
             imageView = (ImageView)v.findViewById(R.id.img_android);
-            button = (ImageButton) v.findViewById(R.id.upload);
-            delete =(ImageButton) v.findViewById(R.id.Delete);
+            button =  v.findViewById(R.id.upload);
+            delete = v.findViewById(R.id.Delete);
             delete.setOnClickListener(v1 -> onClickListener.deleteOnClick(v1, MyAdapter.this.mDataset.get(getAdapterPosition())));
             button.setOnClickListener(this);
             mListener = listener;
@@ -93,23 +93,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Picasso.with(context).load(uri).fit().into(holder.imageView);
        // holder.imageView.setImageURI(uri);
         if (selectedData.isUpload) {
-            holder.button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(view.getContext(), "Already uploaded", Toast.LENGTH_LONG)
-                            .show();
-                }
-            });
-            holder.mTextView.setText("stage" + selectedData.stage + " is uploaded");
+            holder.button.setOnClickListener(view -> Toast.makeText(view.getContext(), "Already uploaded", Toast.LENGTH_LONG)
+                    .show());
 
-            holder.delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(view.getContext(), "Already uploaded", Toast.LENGTH_LONG)
-                            .show();
-                }
-            });
-            holder.button.setImageResource(R.drawable.ic_fab_complete);
+
+            holder.button.setImageResource(R.drawable.ic_done);
+            holder.delete.setVisibility(View.GONE);
+
+        }
+        else{
+            holder.delete.setVisibility(View.VISIBLE);
+            holder.delete.setImageResource(R.drawable.ic_delete);
+            holder.button.setImageResource(R.drawable.ic_file_upload);
         }
     }
 

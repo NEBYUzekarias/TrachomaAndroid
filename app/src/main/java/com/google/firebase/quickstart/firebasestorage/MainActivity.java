@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (data.isUpload) {
 
 
-                            Toast.makeText(getApplicationContext(), "Already uploaded", Toast.LENGTH_LONG)
+                            Toast.makeText(getApplicationContext(), "Already uploaded2", Toast.LENGTH_LONG)
                                             .show();
 
 
