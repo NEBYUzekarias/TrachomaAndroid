@@ -1,6 +1,7 @@
 package com.google.firebase.quickstart.firebasestorage;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +93,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Data selectedData = mDataset.get(position);
         holder.mTextView.setText("stage" + selectedData.stage);
         Uri uri = Uri.parse(selectedData.path);
-        holder.imageView.setImageURI(uri);
+        Context context = holder.imageView.getContext();
+        Picasso.with(context).load(uri).fit().into(holder.imageView);
+       // holder.imageView.setImageURI(uri);
         if (selectedData.isUpload) {
             holder.button.setOnClickListener(new View.OnClickListener() {
                 @Override
