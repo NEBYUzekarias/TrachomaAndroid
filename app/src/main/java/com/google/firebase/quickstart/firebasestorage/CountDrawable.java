@@ -11,14 +11,12 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.view.MenuItem;
 
 import java.util.List;
 
 
 public class CountDrawable extends Drawable {
     private List<Data> mDataset;
-
 
     private Paint mBadgePaint;
     private Paint mTextPaint;
@@ -103,15 +101,6 @@ public class CountDrawable extends Drawable {
     @Override
     public int getOpacity() {
         return PixelFormat.UNKNOWN;
-    }
-
-    public void setDatas(List<Data> datas) {
-        mDataset = datas;
-
-    }
-
-    public List<Data> getmDataset() {
-        return  this.mDataset;
     }
 
 }

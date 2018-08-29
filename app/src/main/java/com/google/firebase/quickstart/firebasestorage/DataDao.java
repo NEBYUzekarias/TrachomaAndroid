@@ -12,17 +12,11 @@ import java.util.List;
 
 @Dao
 public interface DataDao {
-    @Query("select * from data")
+    @Query("select * from data order by is_upload")
     LiveData<List<Data>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertData(Data data);
-
-    @Update
-    void updateData(Data data);
-
-    @Update
-    void updateDatas(Data... datas);
 
     @Delete
     void deleteDatas(Data... datas);
