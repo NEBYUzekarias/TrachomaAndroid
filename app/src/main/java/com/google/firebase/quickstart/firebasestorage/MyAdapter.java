@@ -2,22 +2,17 @@ package com.google.firebase.quickstart.firebasestorage;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
@@ -44,7 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mTextView = (TextView)v.findViewById(R.id.tv_android);
             imageView = (ImageView)v.findViewById(R.id.img_android);
             button =  v.findViewById(R.id.upload);
-            delete = v.findViewById(R.id.Delete);
+            delete = v.findViewById(R.id.delete);
             delete.setOnClickListener(v1 -> onClickListener.deleteOnClick(v1, MyAdapter.this.mDataset.get(getAdapterPosition())));
             button.setOnClickListener(this);
             mListener = listener;

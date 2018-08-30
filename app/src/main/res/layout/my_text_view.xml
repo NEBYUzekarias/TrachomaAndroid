@@ -85,7 +85,7 @@
                 app:srcCompat="@drawable/ic_file_upload" />
 
             <ImageView
-                android:id="@+id/Delete"
+                android:id="@+id/delete"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"

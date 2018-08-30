@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,7 +41,11 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
 
     private final int REQUEST_WRITE_EXTERNAL = 1;
 
-    private LinearLayout mStagesView;
+    private final String CURRENT_STAGE = "stage";
+    private final String CURRENT_CAPTURED_PHOTO_PATH = "capturedPhotoPath";
+    private final String CURRENT_DATA_PATH = "data_path";
+    private final String CURRENT_IS_CAPTURED_MODE = "isCapturedMode";
+
     private RadioGroup mStageRadios;
     private RadioButton[] mRadios;
     private List<CardView> mCards;
@@ -60,6 +66,13 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         // set toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // set up button listeners
         findViewById(R.id.add_btn).setOnClickListener(this);
@@ -68,7 +81,6 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
 
         mSelectedImage = (ImageView) findViewById(R.id.selected_image);
         mStageRadios = (RadioGroup) findViewById(R.id.stage_radios);
-        mStagesView = (LinearLayout) findViewById(R.id.stages_view);
 
         mRadios = new RadioButton[]{
                 (RadioButton) findViewById(R.id.radio_1),
@@ -90,7 +102,23 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
 
         // create fresh data to save details
         mData = new Data();
-        Log.i("data", "fresh data stage: " + mData.stage);
+
+        if (savedInstanceState != null) {
+            mData.stage = savedInstanceState.getInt(CURRENT_STAGE);
+            Log.i("stage", "stage: " + mData.stage);
+
+            String path = savedInstanceState.getString(CURRENT_DATA_PATH);
+            if (path != null) {
+                mData.path = path;
+            }
+
+            String capturedPhotoPath = savedInstanceState.getString(CURRENT_CAPTURED_PHOTO_PATH);
+            if (capturedPhotoPath != null) {
+                mCapturedPhotoPath = capturedPhotoPath;
+            }
+
+            isCaptureMode = savedInstanceState.getBoolean(CURRENT_IS_CAPTURED_MODE);
+        }
     }
 
     private void chooseFromGallery() {
@@ -117,6 +145,9 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
 //            Uri photoURI = FileProvider.getUriForFile(this,
 //                    "com.example.android.fileprovider",
 //                    photoFile);
+            // Save a file path for use when returning to this Activity
+            mCapturedPhotoPath = photoFile.getAbsolutePath();
+
             Uri photoURI = Uri.fromFile(photoFile);
             Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             takePicture.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -150,9 +181,6 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
                     ".jpg",         /* suffix */
                     storageDir      /* directory */
             );
-
-            // Save a file path for use when returning to this Activity
-            mCapturedPhotoPath = image.getAbsolutePath();
         }
 
         return image;
@@ -203,6 +231,8 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
             case R.id.add_btn:
                 boolean detailsStored = storeDataDetails();
                 if (detailsStored) {
+                    Toast.makeText(this, "Data added.", Toast.LENGTH_SHORT)
+                            .show();
                     resetState();
                 }
 
@@ -238,30 +268,19 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
                     Log.i("uri", "uri: null");
                 }
             } else if (requestCode == CAPTURE_IMAGE) {
+                Log.i("capture", "photopath: " + mCapturedPhotoPath);
+
                 if (mCapturedPhotoPath != null) {
                     File f = new File(mCapturedPhotoPath);
                     Uri uri = Uri.fromFile(f);
 
                     mSelectedUri = uri;
+                    Log.i("capture", "uri: " + uri.toString());
                     mSelectedImage.setImageURI(uri);
                 }
             }
         } else {
             Log.i("result", "not ok");
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.info:
-
-                return true;
-            case R.id.about:
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -352,5 +371,57 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
                     toast.show();
                 }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem uploadItem = menu.findItem(R.id.upload_all);
+        uploadItem.setVisible(false);
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.info:
+                startActivity(new Intent(this, InfoActivity.class));
+                break;
+            case R.id.about:
+                startActivity(new Intent(this, AboutActivity.class));
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        if (mData != null) {
+            if (mData.path != null) {
+                outState.putString(CURRENT_DATA_PATH, mData.path);
+            }
+
+            outState.putInt(CURRENT_STAGE, mData.stage);
+            Log.i("stage", "mData not null, stage: " + mData.stage);
+        } else {
+            outState.putInt(CURRENT_STAGE, 0);
+            Log.i("stage", "mData null, stage: " + mData.stage);
+        }
+
+        Log.i("stage", "something");
+
+        outState.putString(CURRENT_CAPTURED_PHOTO_PATH, mCapturedPhotoPath);
+        outState.putBoolean(CURRENT_IS_CAPTURED_MODE, isCaptureMode);
+
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 }

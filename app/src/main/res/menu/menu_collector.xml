@@ -3,12 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <item
-        android:id="@+id/upload_all"
-        android:icon="@drawable/actionbar_group_icon"
-        android:title="@string/upload_all"
-        app:showAsAction="always" />
-
     <item android:id="@+id/info"
         android:title="@string/info"
         app:showAsAction="never" />
