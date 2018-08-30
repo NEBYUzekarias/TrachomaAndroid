@@ -129,4 +129,9 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_about">AboutActivity</string>
+    <string name="stage4_description">Ingrown eyelashes (trichiasis). The scarred inner lining of your eyelid continues to deform, causing your lashes to turn in so that they rub on and scratch the transparent outer surface of your eye (cornea).</string>
+    <string name="stage3_description">Eyelid scarring. Repeated infections lead to scarring of the inner eyelid. The scars often appear as white lines when examined with magnification. Your eyelid may become distorted and may turn in (entropion).</string>
+    <string name="stage5_description">Corneal clouding. The cornea becomes affected by an inflammation that is most commonly seen under your upper lid. Continual inflammation compounded by scratching from the in-turned lashes leads to clouding of the cornea.</string>
+    <string name="no_todos">add data</string>
+    <string name="placeHolder">"Click ""''+''"" sign at the bottom"</string>
 </resources>

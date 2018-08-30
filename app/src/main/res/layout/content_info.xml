@@ -34,6 +34,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/stage1_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -42,6 +43,19 @@
                     android:layout_marginRight="@dimen/text_margin"
                     android:layout_below="@+id/stage1_title"
                     android:text="@string/stage1_description" />
+
+                <ImageView
+                    android:foregroundGravity="center_horizontal"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:clickable="true"
+                    android:layout_margin="5dp"
+                    android:focusable="true"
+                    android:layout_below="@id/stage1_text"
+                    app:srcCompat="@drawable/stage1"
+                    tools:ignore="VectorDrawableCompat" />
+
+
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
@@ -66,6 +80,7 @@
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/stage2_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -74,7 +89,159 @@
                     android:layout_marginRight="@dimen/text_margin"
                     android:layout_below="@+id/stage2_title"
                     android:text="@string/stage2_description" />
+
+                <ImageView
+                    android:foregroundGravity="center_horizontal"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:clickable="true"
+                    android:layout_margin="5dp"
+                    android:focusable="true"
+                    android:layout_below="@id/stage2_text"
+                    app:srcCompat="@drawable/stage2"
+                    tools:ignore="VectorDrawableCompat" />
+
+
             </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/cardView">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/stage3_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:layout_alignParentTop="true"
+                    android:text="stage 3"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/stage3_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_below="@+id/stage3_title"
+                    android:text="@string/stage3_description" />
+
+                <ImageView
+                    android:foregroundGravity="center_horizontal"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:clickable="true"
+                    android:layout_margin="5dp"
+                    android:focusable="true"
+                    android:layout_below="@id/stage3_text"
+                    app:srcCompat="@drawable/stage3"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/cardView">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/stage4_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:layout_alignParentTop="true"
+                    android:text="stage 4"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/stage4_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_below="@+id/stage4_title"
+                    android:text="@string/stage4_description" />
+
+
+
+                <ImageView
+                    android:foregroundGravity="center_horizontal"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:clickable="true"
+                    android:layout_margin="5dp"
+                    android:focusable="true"
+                    android:layout_below="@id/stage4_text"
+                    app:srcCompat="@drawable/stage4"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/cardView">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/stage5_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:layout_alignParentTop="true"
+                    android:text="stage 5"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/stage5_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="@dimen/text_margin"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_below="@+id/stage5_title"
+                    android:text="@string/stage5_description" />
+
+                <ImageView
+                    android:foregroundGravity="center_horizontal"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:clickable="true"
+                    android:layout_margin="5dp"
+                    android:focusable="true"
+                    android:layout_below="@id/stage5_text"
+                    app:srcCompat="@drawable/stage3"
+                    tools:ignore="VectorDrawableCompat" />
+
+            </RelativeLayout>
+
         </android.support.v7.widget.CardView>
     </LinearLayout>
 

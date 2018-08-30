@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     // Recycle view
-    private RecyclerView mRecyclerView;
+//    private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     public CountDrawable badge;
@@ -90,7 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         // start RecycleView
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+      EmptyRecyclerView  mRecyclerView ;
+      mRecyclerView =(EmptyRecyclerView)findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -101,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        View emptyView = findViewById(R.id.todo_list_empty_view);
+        mRecyclerView.setEmptyView(emptyView);
 
         RecyclerViewClickListener listener = (view, data) -> {
             Uri uri;
