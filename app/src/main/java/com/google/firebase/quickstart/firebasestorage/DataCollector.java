@@ -63,6 +63,23 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collector);
 
+        if (savedInstanceState != null) {
+            mData.stage = savedInstanceState.getInt(CURRENT_STAGE);
+            Log.i("stage", "stage: " + mData.stage);
+
+            String path = savedInstanceState.getString(CURRENT_DATA_PATH);
+            if (path != null) {
+                mData.path = path;
+            }
+
+            String capturedPhotoPath = savedInstanceState.getString(CURRENT_CAPTURED_PHOTO_PATH);
+            if (capturedPhotoPath != null) {
+                mCapturedPhotoPath = capturedPhotoPath;
+            }
+
+            isCaptureMode = savedInstanceState.getBoolean(CURRENT_IS_CAPTURED_MODE);
+        }
+
         // set toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -103,22 +120,7 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
         // create fresh data to save details
         mData = new Data();
 
-        if (savedInstanceState != null) {
-            mData.stage = savedInstanceState.getInt(CURRENT_STAGE);
-            Log.i("stage", "stage: " + mData.stage);
 
-            String path = savedInstanceState.getString(CURRENT_DATA_PATH);
-            if (path != null) {
-                mData.path = path;
-            }
-
-            String capturedPhotoPath = savedInstanceState.getString(CURRENT_CAPTURED_PHOTO_PATH);
-            if (capturedPhotoPath != null) {
-                mCapturedPhotoPath = capturedPhotoPath;
-            }
-
-            isCaptureMode = savedInstanceState.getBoolean(CURRENT_IS_CAPTURED_MODE);
-        }
     }
 
     private void chooseFromGallery() {
@@ -187,7 +189,7 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
     }
 
     public boolean storeDataDetails() {
-        if (mData.stage == 0) {
+        if (mData.stage == -1) {
             Toast.makeText(this, "No Stage Selected", Toast.LENGTH_LONG)
                     .show();
             return false;
@@ -404,24 +406,21 @@ public class DataCollector extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         if (mData != null) {
             if (mData.path != null) {
                 outState.putString(CURRENT_DATA_PATH, mData.path);
             }
 
             outState.putInt(CURRENT_STAGE, mData.stage);
-            Log.i("stage", "mData not null, stage: " + mData.stage);
         } else {
-            outState.putInt(CURRENT_STAGE, 0);
-            Log.i("stage", "mData null, stage: " + mData.stage);
+            outState.putInt(CURRENT_STAGE, -1);
         }
-
-        Log.i("stage", "something");
 
         outState.putString(CURRENT_CAPTURED_PHOTO_PATH, mCapturedPhotoPath);
         outState.putBoolean(CURRENT_IS_CAPTURED_MODE, isCaptureMode);
-
-        super.onSaveInstanceState(outState, outPersistentState);
     }
+
+
 }
