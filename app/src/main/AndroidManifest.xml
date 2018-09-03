@@ -6,6 +6,8 @@
     <!-- Used only for testing purposes, not required for Firebase Storage -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -46,6 +48,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <activity
+            android:name=".DetailActivity"
+            android:label="DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".InfoActivity"

@@ -134,4 +134,7 @@
     <string name="stage5_description">Corneal clouding. The cornea becomes affected by an inflammation that is most commonly seen under your upper lid. Continual inflammation compounded by scratching from the in-turned lashes leads to clouding of the cornea.</string>
     <string name="no_todos">add data</string>
     <string name="placeHolder">"Click ""''+''"" sign at the bottom"</string>
+    <string name="cancel">cancel</string>
+    <string name="fire">Delete</string>
+    <string name="dialog_fire_missiles">Delet</string>
 </resources>
