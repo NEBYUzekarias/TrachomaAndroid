@@ -42,19 +42,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             delete = v.findViewById(R.id.delete);
             delete.setOnClickListener(v1 -> onClickListener.deleteOnClick(v1, MyAdapter.this.mDataset.get(getAdapterPosition())));
             button.setOnClickListener(this);
+            imageView.setOnClickListener(this::onClick);
             mListener = listener;
         }
 
         @Override
-        public void onClick(View view) {
-
-            mListener.onClick(view, MyAdapter.this.mDataset.get(getAdapterPosition()));
+        public void onClick(View view ) {
+            int id = view.getId();
+            mListener.onClick(view, MyAdapter.this.mDataset.get(getAdapterPosition()) , id);
 
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(RecyclerViewClickListener listener , ButtonListener buttonListener) {
+    public MyAdapter(RecyclerViewClickListener listener , ButtonListener buttonListener ) {
         this.mListener = listener;
         this.onClickListener = buttonListener;
     }
@@ -88,7 +89,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         Picasso.with(context).load(uri).fit().into(holder.imageView);
        // holder.imageView.setImageURI(uri);
         if (selectedData.isUpload) {
-            holder.button.setOnClickListener(view -> Toast.makeText(view.getContext(), "Already uploaded", Toast.LENGTH_LONG)
+            holder.button.setOnClickListener(view -> Toast.makeText(view.getContext(), "Already uploaded", Toast.LENGTH_SHORT)
                     .show());
 
 
@@ -119,4 +120,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         return 0;
     }
+
+
 }
