@@ -37,6 +37,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +47,8 @@ import android.widget.Toast;
 import android.support.v4.util.Pair;
 import java.io.File;
 import java.util.List;
+
+import static android.widget.Toast.makeText;
 
 /**
  * Activity to upload and download photos from Firebase Storage.
@@ -128,11 +131,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
                 else {
+
                     Log.d("internat", "internat: no internat connection");
 
 
-//                    Toast.makeText(view.getContext(), "no internat ", Toast.LENGTH_SHORT);
-                    Toast.makeText(this,"no internate" , Toast.LENGTH_SHORT);
+                    Toast toast =  makeText(getApplicationContext(),"no internate" , Toast.LENGTH_SHORT);
+
+                    toast.setGravity(Gravity.CENTER|Gravity.CENTER, 0, 0);
+
+                    toast.show();
+
                 }
             }
 
@@ -362,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (datas != null) {
                     for (Data data : datas) {
                         if (data.isUpload) {
-                            Toast.makeText(getApplicationContext(),
+                            makeText(getApplicationContext(),
                                     "Already uploaded2", Toast.LENGTH_LONG)
                                     .show();
                         } else {
@@ -436,6 +444,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void onDialogPositiveClick(DialogFragment dialog ) {
         // User touched the dialog's positive button
+
+
         mDataViewModel.deleteData(position);
 
     }
