@@ -43,7 +43,7 @@ public class DeleteDialogFragment extends DialogFragment  {
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.dialog_fire_missiles)
-                .setTitle("Delete")
+                .setTitle("Delete image")
                 .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the positive button event back to the host activity

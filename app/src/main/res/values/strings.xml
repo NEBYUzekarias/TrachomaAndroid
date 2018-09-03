@@ -136,5 +136,5 @@
     <string name="placeHolder">"Click ""''+''"" sign at the bottom"</string>
     <string name="cancel">cancel</string>
     <string name="fire">Delete</string>
-    <string name="dialog_fire_missiles">Delet</string>
+    <string name="dialog_fire_missiles">This image will be deleted</string>
 </resources>
